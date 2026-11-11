@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU ANALYTICS</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+ --orange:#f28b35;
+ --dark:#dc741f;
+ --light:#fff0e2;
+ --bg:#fffaf6;
+ --white:#ffffff;
+ --text:#33343b;
+ --muted:#85838a;
+ --border:#f1e4d9;
+}
+
+* {
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+}
+
+html {scroll-behavior:smooth}
+
+body {
+ font-family:Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ line-height:1.65;
+}
+
+button {font:inherit;cursor:pointer}
+
+header {
+ background:white;
+ border-bottom:2px solid var(--light);
+ padding:17px 6%;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+
+.brand {
+ font-size:22px;
+ font-weight:800;
+ color:var(--dark);
+ letter-spacing:1.5px;
+}
+
+.nav {
+ display:flex;
+ gap:20px;
+ flex-wrap:wrap;
+}
+
+.nav a {
+ color:var(--text);
+ text-decoration:none;
+ font-size:14px;
+}
+
+.nav a:hover {color:var(--orange)}
+
+.container {
+ width:92%;
+ max-width:1100px;
+ margin:auto;
+}
+
+.hero {
+ margin:30px auto;
+ padding:55px 7%;
+ background:linear-gradient(120deg,#fff0e2,#fff9f3);
+ border:1px solid #f5dfcc;
+ border-radius:25px;
+ display:grid;
+ grid-template-columns:1.5fr 1fr;
+ align-items:center;
+ gap:25px;
+}
+
+.eyebrow {
+ color:var(--dark);
+ font-size:13px;
+ font-weight:bold;
+ letter-spacing:1px;
+ text-transform:uppercase;
+}
+
+.hero h1 {
+ font-size:clamp(30px,5vw,48px);
+ line-height:1.15;
+ margin:15px 0;
+}
+
+.hero h1 span {color:var(--orange)}
+
+.hero p {
+ color:#69666a;
+ max-width:540px;
+ margin-bottom:20px;
+}
+
+.hero-art {
+ background:white;
+ border-radius:25px;
+ padding:25px;
+ text-align:center;
+ border:1px solid var(--border);
+}
+
+.hero-art .symbol {
+ font-size:80px;
+}
+
+.hero-art h3 {color:var(--dark)}
+
+.primary {
+ background:var(--orange);
+ color:white;
+ border:0;
+ border-radius:12px;
+ padding:14px 24px;
+ font-weight:bold;
+ transition:.2s;
+}
+
+.primary:hover {
+ background:var(--dark);
+ transform:translateY(-2px);
+}
+
+.secondary {
+ background:white;
+ color:var(--dark);
+ border:1px solid var(--orange);
+ border-radius:12px;
+ padding:12px 20px;
+}
+
+.section {margin:35px auto}
+
+.section-title {
+ font-size:27px;
+ margin-bottom:8px;
+}
+
+.section-description {
+ color:var(--muted);
+ margin-bottom:22px;
+}
+
+.card {
+ background:white;
+ border:1px solid var(--border);
+ border-radius:19px;
+ padding:26px;
+ margin-bottom:20px;
+ box-shadow:0 5px 18px rgba(120,70,30,.045);
+}
+
+.features {
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+ gap:15px;
+}
+
+.feature {
+ background:white;
+ padding:22px;
+ border:1px solid var(--border);
+ border-radius:17px;
+}
+
+.feature .icon {
+ font-size:30px;
+ margin-bottom:8px;
+}
+
+.feature h3 {
+ color:var(--dark);
+ margin-bottom:7px;
+}
+
+.feature p {
+ color:var(--muted);
+ font-size:14px;
+}
+
+.survey {display:none}
+
+.progress-info {
+ display:flex;
+ justify-content:space-between;
+ color:var(--muted);
+ font-size:13px;
+ margin-bottom:10px;
+}
+
+.progress {
+ height:9px;
+ background:#f5e9df;
+ border-radius:20px;
+ overflow:hidden;
+ margin-bottom:25px;
+}
+
+.progress-fill {
+ height:100%;
+ background:var(--orange);
+ width:0%;
+ transition:.3s;
+}
+
+.question-title {
+ font-size:23px;
+ margin-bottom:8px;
+}
+
+.question-description {
+ color:var(--muted);
+ margin-bottom:20px;
+}
+
+.options {
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:11px;
+}
+
+.option {
+ display:flex;
+ align-items:flex-start;
+ gap:11px;
+ padding:14px;
+ background:#fffaf6;
+ border:1px solid var(--border);
+ border-radius:12px;
+ cursor:pointer;
+ transition:.2s;
+}
+
+.option:hover {
+ border-color:var(--orange);
+ background:var(--light);
+}
+
+.option:has(input:checked) {
+ background:var(--light);
+ border:2px solid var(--orange);
+ padding:13px;
+}
+
+.option input {
+ accent-color:var(--orange);
+ margin-top:5px;
+ width:16px;
+ height:16px;
+ flex-shrink:0;
+}
+
+.option span {font-size:14px}
+
+.survey-buttons {
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ margin-top:25px;
+}
+
+.error {
+ color:#d94d36;
+ margin-top:12px;
+ font-size:14px;
+}
+
+.counter {
+ color:var(--dark);
+ font-size:13px;
+ margin-top:15px;
+}
+
+.result {
+ display:none;
+ text-align:center;
+}
+
+.result-icon {
+ font-size:55px;
+ margin-bottom:10px;
+}
+
+.result-box {
+ background:var(--light);
+ padding:22px;
+ border-radius:16px;
+ margin:20px 0;
+}
+
+.qr {
+ display:flex;
+ justify-content:center;
+ margin:20px auto;
+ min-height:130px;
+}
+
+.recommendation {
+ background:white;
+ border:1px solid var(--border);
+ border-left:5px solid var(--orange);
+ border-radius:13px;
+ padding:20px;
+ margin:15px 0;
+}
+
+.recommendation h3 {
+ color:var(--dark);
+ margin-bottom:10px;
+}
+
+.recommendation ul {
+ padding-left:21px;
+}
+
+.recommendation li {margin:8px 0}
+
+.recommendation p {margin:8px 0}
+
+.tag {
+ display:inline-block;
+ background:var(--light);
+ color:var(--dark);
+ border-radius:30px;
+ padding:6px 12px;
+ margin:4px;
+ font-size:13px;
+}
+
+.tip {
+ background:#fff8ef;
+ padding:15px;
+ border-radius:12px;
+ margin-top:12px;
+}
+
+.plan-day {
+ display:flex;
+ gap:13px;
+ align-items:flex-start;
+ padding:12px 0;
+ border-bottom:1px solid var(--border);
+}
+
+.day-number {
+ background:var(--light);
+ color:var(--dark);
+ border-radius:10px;
+ padding:8px 12px;
+ font-weight:bold;
+}
+
+.hidden {display:none!important}
+
+footer {
+ background:white;
+ border-top:1px solid var(--border);
+ text-align:center;
+ padding:30px 15px;
+ color:var(--muted);
+ margin-top:50px;
+ font-size:13px;
+}
+
+@media(max-width:700px) {
+ header {flex-direction:column}
+ .hero {grid-template-columns:1fr;padding:32px 22px}
+ .hero-art {display:none}
+ .card {padding:19px}
+ .survey-buttons {flex-direction:column}
+ .survey-buttons button {width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">EDU ANALYTICS</div>
+ <nav class="nav">
+  <a href="#home">Главная</a>
+  <a href="#about">О проекте</a>
+  <a href="#features">Возможности</a>
+  <a href="#survey">Опрос</a>
+ </nav>
+</header>
+
+<main class="container">
+
+<!-- ГЛАВНАЯ -->
+
+<section class="hero" id="home">
+
+ <div>
+  <div class="eyebrow">Искусственный интеллект в образовании</div>
+
+  <h1>
+   Учись эффективнее вместе с
+   <span>ИИ</span>
+  </h1>
+
+  <p>
+   Узнай, как использовать искусственный интеллект
+   с максимальной пользой для обучения.
+   Пройди небольшой опрос и получи персональные
+   методические рекомендации, учитывающие твою
+   успеваемость и способы работы с ИИ.
+  </p>
+
+  <button class="primary" onclick="startSurvey()">
+   Пройти опрос →
+  </button>
+ </div>
+
+ <div class="hero-art">
+  <div class="symbol">🧠</div>
+  <h3>Умное обучение</h3>
+  <p>Персональный подход к каждому обучающемуся</p>
+ </div>
+
+</section>
+
+
+<!-- О ПРОЕКТЕ -->
+
+<section class="section" id="about">
+
+ <h2 class="section-title">О проекте</h2>
+
+ <p class="section-description">
+  Что представляет собой EDU ANALYTICS?
+ </p>
+
+ <div class="card">
+  <p>
+   EDU ANALYTICS — образовательный проект,
+   посвящённый исследованию применения искусственного
+   интеллекта в учебной деятельности.
+  </p>
+
+  <br>
+
+  <p>
+   Главная задача проекта — разработать методические
+   рекомендации, которые помогут обучающимся
+   использовать возможности ИИ в зависимости
+   от уровня их успеваемости и особенностей
+   взаимодействия с искусственным интеллектом.
+  </p>
+
+  <br>
+
+  <p>
+   В основе системы лежит анализ ответов студентов
+   на вопросы об успеваемости и использовании
+   современных ИИ-инструментов.
+  </p>
+ </div>
+
+</section>
+
+
+<!-- ПРЕИМУЩЕСТВА -->
+
+<section class="section" id="features">
+
+ <h2 class="section-title">Возможности платформы</h2>
+
+ <p class="section-description">
+  Что ты получишь после прохождения опроса?
+ </p>
+
+ <div class="features">
+
+  <div class="feature">
+   <div class="icon">📊</div>
+   <h3>Анализ успеваемости</h3>
+   <p>Определение образовательной категории на основе твоего ответа.</p>
+  </div>
+
+  <div class="feature">
+   <div class="icon">🤖</div>
+   <h3>Анализ использования ИИ</h3>
+   <p>Изучение целей и способов применения искусственного интеллекта.</p>
+  </div>
+
+  <div class="feature">
+   <div class="icon">🎯</div>
+   <h3>Личные рекомендации</h3>
+   <p>Подбор советов, подходящих именно твоим ответам.</p>
+  </div>
+
+  <div class="feature">
+   <div class="icon">📱</div>
+   <h3>QR-код</h3>
+   <p>Быстрый доступ к персональной странице с рекомендациями.</p>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ОПРОС -->
+
+<section class="section survey" id="survey">
+
+ <div class="card">
+
+  <div class="progress-info">
+   <span id="stepLabel">Шаг 1 из 2</span>
+   <span id="progressPercent">50%</span>
+  </div>
+
+  <div class="progress">
+   <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ШАГ 1 -->
+
+  <div id="step1">
+
+   <div class="eyebrow">Анкета обучающегося</div>
+
+   <h2 class="question-title">
+    1. На какие оценки ты учишься преимущественно?
+   </h2>
+
+   <p class="question-description">
+    Выбери один вариант, который наиболее точно
+    характеризует твою успеваемость.
+   </p>
+
+   <div class="options">
+
+    <label class="option">
+     <input type="radio" name="grade" value="2">
+     <span><b>Преимущественно на 2</b><br>
+     Мне необходимо улучшить базовые знания.</span>
+    </label>
+
+    <label class="option">
+     <input type="radio" name="grade" value="3">
+     <span><b>Преимущественно на 3</b><br>
+     Хочу лучше усваивать учебный материал.</span>
+    </label>
+
+    <label class="option">
+     <input type="radio" name="grade" value="4">
+     <span><b>Преимущественно на 4</b><br>
+     Хочу углублять знания и совершенствоваться.</span>
+    </label>
+
+    <label class="option">
+     <input type="radio" name="grade" value="5">
+     <span><b>Преимущественно на 5</b><br>
+     Стремлюсь к высоким результатам.</span>
+    </label>
+
+    <label class="option">
+     <input type="radio" name="grade" value="5only">
+     <span><b>Только на 5</b><br>
+     Стабильно показываю отличные результаты.</span>
+    </label>
+
+   </div>
+
+   <div class="error" id="error1"></div>
+
+   <div class="survey-buttons">
+    <button class="secondary" onclick="backHome()">← Назад</button>
+    <button class="primary" onclick="nextStep()">Далее →</button>
+   </div>
+
+  </div>
+
+
+  <!-- ШАГ 2 -->
+
+  <div id="step2" class="hidden">
+
+   <div class="eyebrow">Использование технологий</div>
+
+   <h2 class="question-title">
+    2. Как именно ты пользуешься искусственным интеллектом?
+   </h2>
+
+   <p class="question-description">
+    Отметь все подходящие варианты.
+    Можно выбрать несколько ответов.
+   </p>
+
+   <div class="options">
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="homework">
+     <span>📚 Для выполнения домашних заданий</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="answers">
+     <span>✍️ Для получения готовых ответов</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="explain">
+     <span>💡 Для объяснения сложных тем</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="steps">
+     <span>🧩 Для пошагового решения задач</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="search">
+     <span>🔎 Для поиска дополнительной информации</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="tests">
+     <span>📝 Для подготовки к контрольным и экзаменам</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="notes">
+     <span>📖 Для создания конспектов</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="presentations">
+     <span>📊 Для создания презентаций</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="texts">
+     <span>🖋️ Для написания сочинений и текстов</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="checking">
+     <span>✅ Для проверки собственных ответов</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="errors">
+     <span>🔧 Для поиска и исправления ошибок</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="languages">
+     <span>🌍 Для изучения иностранных языков</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="practice">
+     <span>🎓 Для создания тестов и тренировочных заданий</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="projects">
+     <span>🔬 Для подготовки проектов и исследований</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="ideas">
+     <span>🎨 Для генерации идей и творческих работ</span>
+    </label>
+
+    <label class="option">
+     <input type="checkbox" name="usage" value="rarely">
+     <span>➖ Практически не использую ИИ</span>
+    </label>
+
+   </div>
+
+   <div class="counter" id="counter">
+    Выбрано вариантов: 0
+   </div>
+
+   <div class="error" id="error2"></div>
+
+   <div class="survey-buttons">
+    <button class="secondary" onclick="previousStep()">← Назад</button>
+    <button class="primary" onclick="analyze()">Получить результат →</button>
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- РЕЗУЛЬТАТ -->
+
+<section class="section result" id="result">
+
+ <div class="card">
+
+  <div class="result-icon">🎉</div>
+
+  <div class="eyebrow">Анализ завершён</div>
+
+  <h2 class="section-title">Твои рекомендации готовы!</h2>
+
+  <p id="resultDescription"></p>
+
+  <div class="result-box">
+
+   <h3 id="resultGrade"></h3>
+
+   <p id="resultUsage"></p>
+
+  </div>
+
+  <h3>Твой персональный QR-код</h3>
+
+  <p class="section-description">
+   Отсканируй его или нажми на ссылку,
+   чтобы открыть индивидуальную страницу.
+  </p>
+
+  <div class="qr" id="qr"></div>
+
+  <a id="resultLink" href="#"
+     style="color:var(--dark);font-weight:bold;word-break:break-all">
+     Открыть рекомендации
+  </a>
+
+  <br>
+
+  <button class="primary" onclick="showRecommendations()">
+   Посмотреть рекомендации →
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ -->
+
+<section class="section hidden" id="personal">
+
+ <div class="card">
+
+  <div class="eyebrow">Индивидуальная образовательная карта</div>
+
+  <h2 class="section-title">Твои методические рекомендации</h2>
+
+  <p class="section-description">
+   Ниже представлены рекомендации, сформированные
+   на основе двух твоих ответов.
+  </p>
+
+  <div id="personalSummary"></div>
+
+  <div id="gradeTips"></div>
+
+  <div id="usageTips"></div>
+
+  <div id="studyPlan"></div>
+
+  <div class="recommendation">
+   <h3>⭐ Как правильно использовать ИИ?</h3>
+   <ul>
+    <li>Сначала самостоятельно попробуй решить задание.</li>
+    <li>Не копируй ответы без понимания материала.</li>
+    <li>Проверяй информацию по учебникам и достоверным источникам.</li>
+    <li>Используй ИИ для развития собственного мышления.</li>
+    <li>Не передавай сервисам личные данные и пароли.</li>
+   </ul>
+  </div>
+
+  <button class="primary" onclick="window.print()">
+   Сохранить рекомендации / PDF
+  </button>
+
+  <button class="secondary" onclick="location.href=location.pathname">
+   Пройти опрос заново
+  </button>
+
+ </div>
+
+</section>
+
+</main>
+
+<footer>
+ <b>EDU ANALYTICS</b><br>
+ Искусственный интеллект в образовании:<br>
+ аналитика успеваемости обучающихся<br><br>
+ © 2026
+</footer>
+
+
+<script>
+
+// =======================================
+// 1. ДАННЫЕ ПО УСПЕВАЕМОСТИ
+// =======================================
+
+const grades = {
+
+ "2": {
+  name:"Преимущественно на 2",
+  category:"Базовый уровень",
+  description:"Твоя главная задача — постепенно устранить пробелы в знаниях и освоить основные учебные темы.",
+  tips:[
+   "Проси ИИ объяснять сложные темы простыми словами.",
+   "Разбирай задания по небольшим этапам.",
+   "Начинай с простых упражнений.",
+   "Создавай карточки с основными понятиями и правилами.",
+   "Проси приводить дополнительные примеры.",
+   "Проверяй, насколько хорошо понял материал, с помощью коротких тестов."
+  ]
+ },
+
+ "3": {
+  name:"Преимущественно на 3",
+  category:"Уровень закрепления знаний",
+  description:"Твоя цель — закрепить пройденный материал, научиться самостоятельно выполнять задания и постепенно улучшать результаты.",
+  tips:[
+   "Используй ИИ для повторения сложных тем.",
+   "Проси объяснять причины ошибок.",
+   "Составляй планы подготовки к контрольным.",
+   "Выполняй дополнительные упражнения средней сложности.",
+   "Проверяй знания с помощью тренировочных тестов.",
+   "Старайся самостоятельно объяснять изученный материал."
+  ]
+ },
+
+ "4": {
+  name:"Преимущественно на 4",
+  category:"Продвинутый уровень",
+  description:"Твоя цель — углубить знания, научиться анализировать информацию и справляться с более сложными заданиями.",
+  tips:[
+   "Изучай дополнительные материалы.",
+   "Сравнивай различные способы решения задач.",
+   "Проси ИИ подготовить задания повышенной сложности.",
+   "Развивай самостоятельное аналитическое мышление.",
+   "Используй ИИ для проверки собственных выводов.",
+   "Работай над исследовательскими проектами."
+  ]
+ },
+
+ "5": {
+  name:"Преимущественно на 5",
+  category:"Высокий уровень",
+  description:"Твоя цель — расширять знания, совершенствовать навыки и развивать исследовательские способности.",
+  tips:[
+   "Изучай темы за пределами школьной программы.",
+   "Решай нестандартные задачи.",
+   "Используй ИИ для анализа научных материалов.",
+   "Сравнивай различные точки зрения.",
+   "Создавай собственные исследовательские проекты.",
+   "Развивай навыки критического мышления."
+  ]
+ },
+
+ "5only": {
+  name:"Только на 5",
+  category:"Уровень углублённого изучения",
+  description:"Твоя цель — поддерживать высокие результаты, расширять кругозор и развивать творческие и исследовательские способности.",
+  tips:[
+   "Изучай темы повышенной сложности.",
+   "Готовься к олимпиадам и конкурсам.",
+   "Разрабатывай собственные исследовательские идеи.",
+   "Используй ИИ для анализа сложных научных вопросов.",
+   "Создавай оригинальные проекты.",
+   "Проверяй гипотезы и оценивай достоверность информации."
+  ]
+ }
+
+};
+
+
+// =======================================
+// 2. ДАННЫЕ ПО СПОСОБАМ ИСПОЛЬЗОВАНИЯ ИИ
+// =======================================
+
+const usages = {
+
+ homework:{
+  name:"Выполнение домашних заданий",
+  tips:[
+   "Сначала попробуй выполнить задание самостоятельно.",
+   "Проси ИИ объяснить непонятные этапы.",
+   "Используй аналогичные задания для тренировки.",
+   "После выполнения объясни решение своими словами."
+  ]
+ },
+
+ answers:{
+  name:"Получение готовых ответов",
+  tips:[
+   "Не ограничивайся копированием готового ответа.",
+   "Проси объяснить, почему ответ именно такой.",
+   "Проверяй правильность результата.",
+   "Попробуй самостоятельно решить похожее задание."
+  ]
+ },
+
+ explain:{
+  name:"Объяснение сложных тем",
+  tips:[
+   "Проси объяснять тему простым языком.",
+   "Проси приводить несколько примеров.",
+   "Задавай уточняющие вопросы.",
+   "Попроси проверить понимание темы."
+  ]
+ },
+
+ steps:{
+  name:"Пошаговое решение задач",
+  tips:[
+   "Проси объяснять каждый этап решения.",
+   "Уточняй назначение используемых формул.",
+   "Сравнивай несколько способов решения.",
+   "Самостоятельно повторяй решение без подсказок."
+  ]
+ },
+
+ search:{
+  name:"Поиск дополнительной информации",
+  tips:[
+   "Проси указывать источники информации.",
+   "Сравнивай сведения с учебниками.",
+   "Проверяй факты и даты.",
+   "Используй несколько независимых источников."
+  ]
+ },
+
+ tests:{
+  name:"Подготовка к контрольным и экзаменам",
+  tips:[
+   "Создавай тренировочные тесты.",
+   "Составляй расписание подготовки.",
+   "Повторяй темы, в которых допускаешь ошибки.",
+   "Проси подготовить задания разного уровня сложности."
+  ]
+ },
+
+ notes:{
+  name:"Создание конспектов",
+  tips:[
+   "Проси выделять главные мысли.",
+   "Создавай краткие структурированные записи.",
+   "Проверяй полноту конспекта.",
+   "Дополняй записи собственными примерами."
+  ]
+ },
+
+ presentations:{
+  name:"Создание презентаций",
+  tips:[
+   "Используй ИИ для составления плана презентации.",
+   "Проси предлагать структуру слайдов.",
+   "Проверяй достоверность фактов.",
+   "Добавляй собственные выводы и иллюстрации."
+  ]
+ },
+
+ texts:{
+  name:"Написание сочинений и текстов",
+  tips:[
+   "Проси предложить план текста.",
+   "Используй ИИ для поиска идей.",
+   "Проверяй грамматику и орфографию.",
+   "Сохраняй собственный стиль и самостоятельно формулируй выводы."
+  ]
+ },
+
+ checking:{
+  name:"Проверка собственных ответов",
+  tips:[
+   "Проси объяснить найденные неточности.",
+   "Сравнивай свой ответ с учебным материалом.",
+   "Проверяй логику рассуждений.",
+   "Записывай ошибки, чтобы не повторять их."
+  ]
+ },
+
+ errors:{
+  name:"Поиск и исправление ошибок",
+  tips:[
+   "Проси объяснить причину каждой ошибки.",
+   "Разделяй ошибки по темам.",
+   "Выполняй дополнительные задания на проблемные темы.",
+   "Повторно проверяй исправленные задания."
+  ]
+ },
+
+ languages:{
+  name:"Изучение иностранных языков",
+  tips:[
+   "Создавай упражнения на грамматику.",
+   "Тренируй новые слова.",
+   "Проси составлять диалоги.",
+   "Используй ИИ для объяснения языковых правил."
+  ]
+ },
+
+ practice:{
+  name:"Создание тестов и тренировочных заданий",
+  tips:[
+   "Составляй тесты по изученной теме.",
+   "Начинай с базовых вопросов.",
+   "Постепенно увеличивай сложность.",
+   "Анализируй ошибки после выполнения."
+  ]
+ },
+
+ projects:{
+  name:"Подготовка проектов и исследований",
+  tips:[
+   "Используй ИИ для поиска исследовательских вопросов.",
+   "Проси составлять план проекта.",
+   "Сравнивай различные источники.",
+   "Самостоятельно проверяй выводы и результаты."
+  ]
+ },
+
+ ideas:{
+  name:"Генерация идей и творческих работ",
+  tips:[
+   "Проси предлагать несколько вариантов идей.",
+   "Развивай понравившуюся идею самостоятельно.",
+   "Сравнивай разные подходы.",
+   "Создавай оригинальный итоговый результат."
+  ]
+ },
+
+ rarely:{
+  name:"Практически не использую ИИ",
+  tips:[
+   "Начни с простых запросов для объяснения учебных тем.",
+   "Попробуй создавать тренировочные тесты.",
+   "Используй ИИ для составления планов подготовки.",
+   "Проверяй полученную информацию.",
+   "Постепенно знакомься с образовательными возможностями ИИ."
+  ]
+ }
+
+};
+
+
+// =======================================
+// 3. НАВИГАЦИЯ ПО ОПРОСУ
+// =======================================
+
+function startSurvey(){
+ document.getElementById("survey").style.display="block";
+ document.getElementById("survey").scrollIntoView();
+ updateProgress(1);
+}
+
+function backHome(){
+ document.getElementById("survey").style.display="none";
+ document.getElementById("home").scrollIntoView();
+}
+
+function updateProgress(step){
+ const percent=step===1?50:100;
+ document.getElementById("progressFill").style.width=percent+"%";
+ document.getElementById("progressPercent").textContent=percent+"%";
+ document.getElementById("stepLabel").textContent="Шаг "+step+" из 2";
+}
+
+function nextStep(){
+
+ const grade=document.querySelector('input[name="grade"]:checked');
+
+ if(!grade){
+  document.getElementById("error1").textContent="Выбери вариант ответа.";
+  return;
+ }
+
+ document.getElementById("error1").textContent="";
+ document.getElementById("step1").classList.add("hidden");
+ document.getElementById("step2").classList.remove("hidden");
+
+ updateProgress(2);
+
+ document.getElementById("survey").scrollIntoView();
+}
+
+function previousStep(){
+ document.getElementById("step2").classList.add("hidden");
+ document.getElementById("step1").classList.remove("hidden");
+ updateProgress(1);
+ document.getElementById("survey").scrollIntoView();
+}
+
+
+// =======================================
+// 4. СЧЁТЧИК ВЫБРАННЫХ ВАРИАНТОВ
+// =======================================
+
+document.querySelectorAll('input[name="usage"]').forEach(input=>{
+ input.addEventListener("change",function(){
+
+  const selected=[...document.querySelectorAll('input[name="usage"]:checked')];
+
+  if(this.value==="rarely" && this.checked){
+   document.querySelectorAll('input[name="usage"]').forEach(item=>{
+    if(item!==this)item.checked=false;
+   });
+  }
+
+  if(this.value!=="rarely" && this.checked){
+   const rarely=document.querySelector('input[value="rarely"]');
+   rarely.checked=false;
+  }
+
+  const count=document.querySelectorAll('input[name="usage"]:checked').length;
+
+  document.getElementById("counter").textContent=
+   "Выбрано вариантов: "+count;
+ });
+});
+
+
+// =======================================
+// 5. АНАЛИЗ ОТВЕТОВ
+// =======================================
+
+function analyze(){
+
+ const gradeInput=document.querySelector('input[name="grade"]:checked');
+
+ const selected=[...document.querySelectorAll('input[name="usage"]:checked')];
+
+ const error=document.getElementById("error2");
+ error.textContent="";
+
+ if(!gradeInput){
+  error.textContent="Необходимо выбрать успеваемость.";
+  return;
+ }
+
+ if(selected.length===0){
+  error.textContent="Выбери хотя бы один вариант использования ИИ.";
+  return;
+ }
+
+ const grade=gradeInput.value;
+ const usage=selected.map(item=>item.value);
+
+ if(usage.includes("rarely") && usage.length>1){
+  error.textContent="Вариант «Практически не использую ИИ» нельзя выбирать вместе с другими.";
+  return;
+ }
+
+ const url=new URL(window.location.href);
+
+ url.search="";
+ url.hash="";
+
+ url.searchParams.set("grade",grade);
+
+ usage.forEach(item=>{
+  url.searchParams.append("usage",item);
+ });
+
+ url.hash="personal";
+
+ const link=url.href;
+
+ document.getElementById("resultDescription").textContent=
+  "Мы проанализировали твои ответы и подготовили индивидуальную образовательную карту.";
+
+ document.getElementById("resultGrade").textContent=
+  grades[grade].name;
+
+ document.getElementById("resultUsage").textContent=
+  "Выбрано способов использования ИИ: "+usage.length;
+
+ document.getElementById("result").style.display="block";
+
+ document.getElementById("resultLink").href=link;
+
+ document.getElementById("qr").innerHTML="";
+
+ new QRCode(document.getElementById("qr"),{
+  text:link,
+  width:180,
+  height:180,
+  correctLevel:QRCode.CorrectLevel.H
+ });
+
+ document.getElementById("result").scrollIntoView();
+}
+
+
+// =======================================
+// 6. СОЗДАНИЕ СПИСКОВ
+// =======================================
+
+function makeList(items){
+ return "<ul>"+items.map(item=>"<li>"+item+"</li>").join("")+"</ul>";
+}
+
+
+// =======================================
+// 7. ИНДИВИДУАЛЬНЫЕ РЕКОМЕНДАЦИИ
+// =======================================
+
+function showRecommendations(){
+
+ document.getElementById("result").style.display="none";
+ document.getElementById("personal").classList.remove("hidden");
+
+ document.getElementById("personal").scrollIntoView();
+
+}
+
+function openPersonalPage(){
+
+ const params=new URLSearchParams(window.location.search);
+
+ const grade=params.get("grade");
+ const usage=params.getAll("usage");
+
+ if(!grade || !grades[grade] || usage.length===0 ||
+    !usage.every(item=>usages[item])){
+  return;
+ }
+
+ document.getElementById("survey").style.display="none";
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("about").classList.add("hidden");
+ document.getElementById("features").classList.add("hidden");
+ document.getElementById("personal").classList.remove("hidden");
+
+ const g=grades[grade];
+
+ document.getElementById("personalSummary").innerHTML=`
+  <div class="recommendation">
+   <h3>📊 Твой образовательный профиль</h3>
+   <p><b>Успеваемость:</b> ${g.name}</p>
+   <p><b>Категория:</b> ${g.category}</p>
+   <p>${g.description}</p>
+   <p><b>Выбранные способы использования ИИ:</b></p>
+   ${usage.map(item=>`<span class="tag">${usages[item].name}</span>`).join("")}
+  </div>
+ `;
+
+ document.getElementById("gradeTips").innerHTML=`
+  <div class="recommendation">
+   <h3>🎯 Рекомендации с учётом успеваемости</h3>
+   ${makeList(g.tips)}
+  </div>
+ `;
+
+ document.getElementById("usageTips").innerHTML=
+  usage.map(item=>`
+   <div class="recommendation">
+    <h3>🤖 ${usages[item].name}</h3>
+    ${makeList(usages[item].tips)}
+   </div>
+  `).join("");
+
+ const plan=[
+  "Определи учебные темы, которые требуют дополнительного внимания.",
+  "Используй ИИ для изучения и повторения выбранных тем.",
+  "Выполни несколько заданий самостоятельно.",
+  "Проверь свои результаты и проанализируй ошибки.",
+  "Оцени, какие знания удалось улучшить."
+ ];
+
+ document.getElementById("studyPlan").innerHTML=`
+  <div class="recommendation">
+   <h3>📅 Твой план совершенствования</h3>
+   <p>Рекомендуемый план самостоятельной работы:</p>
+   ${plan.map((item,index)=>`
+    <div class="plan-day">
+     <div class="day-number">${index+1}</div>
+     <div>${item}</div>
+    </div>
+   `).join("")}
+  </div>
+ `;
+
+ window.scrollTo(0,0);
+}
+
+
+// =======================================
+// 8. ЗАПУСК
+// =======================================
+
+window.addEventListener("load",function(){
+ openPersonalPage();
+});
+
+</script>
+
+</body>
+</html>
